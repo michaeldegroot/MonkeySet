@@ -3,5 +3,7 @@
 "asi" : true,
 "undef": true,
 "node": true,
-"mocha": true
+"mocha": true,
+"jquery": true,
+"browser": true
 }

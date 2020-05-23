@@ -29,9 +29,7 @@ On top of that you have an extensive operations, analyzes, validations, and filt
 
 It's core components are designed with performance in mind to maximize your results in for example back testing of your crypto currency bot :)
 
-## Warning
-
-**Warning: this project is not finished yet, do not use it in your project**
+**Warning: this project is not yet finished and the api will change heavily, do not use it in any important project just yet :)**
 
 ## Features
 

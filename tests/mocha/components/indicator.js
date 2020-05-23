@@ -8,7 +8,7 @@ monkeyset.Random.setsFill(10)
 const workset = monkeyset
   .fetch('sets')
   .last(10)
-  .convert('ohlc')
+  .ohlc()
   .result()
 
 for (let index in tulind.indicators) {

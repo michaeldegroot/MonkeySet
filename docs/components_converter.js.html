@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: components/converter.js |  </title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 250px; height: 120px">
+        
+            <a href="index.html" rel="noopener noreferrer" target="_blank">
+                <img src="https://i.imgur.com/hcLIful.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link"> </a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="MonkeySet.html">MonkeySet</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.html#fetch">fetch</a></li></ul><div class="member-type">Events</div><ul class="inner"><li><a href="MonkeySet.html#event:add">add</a></li><li><a href="MonkeySet.html#event:clear">clear</a></li><li><a href="MonkeySet.html#event:fileLoad">fileLoad</a></li><li><a href="MonkeySet.html#event:fileSave">fileSave</a></li></ul></div></li><li><a href="MonkeySet.Analyzer.html">Analyzer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Analyzer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Analyzer.html#pattern">pattern</a></li><li><a href="MonkeySet.Analyzer.html#predictPattern">predictPattern</a></li></ul></div></li><li><a href="MonkeySet.Converter.html">Converter</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Converter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Converter.html#json">json</a></li><li><a href="MonkeySet.Converter.html#ohlc">ohlc</a></li></ul></div></li><li><a href="MonkeySet.File.html">File</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.File_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.File.html#export">export</a></li><li><a href="MonkeySet.File.html#import">import</a></li><li><a href="MonkeySet.File.html#load">load</a></li><li><a href="MonkeySet.File.html#save">save</a></li></ul></div></li><li><a href="MonkeySet.Filter.html">Filter</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Filter_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Filter.html#between">between</a></li><li><a href="MonkeySet.Filter.html#first">first</a></li><li><a href="MonkeySet.Filter.html#last">last</a></li><li><a href="MonkeySet.Filter.html#result">result</a></li><li><a href="MonkeySet.Filter.html#sort">sort</a></li></ul></div></li><li><a href="MonkeySet.Indicator.html">Indicator</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Indicator_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Indicator.html#abs">abs</a></li><li><a href="MonkeySet.Indicator.html#acos">acos</a></li><li><a href="MonkeySet.Indicator.html#ad">ad</a></li><li><a href="MonkeySet.Indicator.html#add">add</a></li><li><a href="MonkeySet.Indicator.html#adosc">adosc</a></li><li><a href="MonkeySet.Indicator.html#adx">adx</a></li><li><a href="MonkeySet.Indicator.html#adxr">adxr</a></li><li><a href="MonkeySet.Indicator.html#ao">ao</a></li><li><a href="MonkeySet.Indicator.html#apo">apo</a></li><li><a href="MonkeySet.Indicator.html#aroon">aroon</a></li><li><a href="MonkeySet.Indicator.html#aroonosc">aroonosc</a></li><li><a href="MonkeySet.Indicator.html#asin">asin</a></li><li><a href="MonkeySet.Indicator.html#atan">atan</a></li><li><a href="MonkeySet.Indicator.html#atr">atr</a></li><li><a href="MonkeySet.Indicator.html#avgprice">avgprice</a></li><li><a href="MonkeySet.Indicator.html#bbands">bbands</a></li><li><a href="MonkeySet.Indicator.html#bop">bop</a></li><li><a href="MonkeySet.Indicator.html#cci">cci</a></li><li><a href="MonkeySet.Indicator.html#ceil">ceil</a></li><li><a href="MonkeySet.Indicator.html#cmo">cmo</a></li><li><a href="MonkeySet.Indicator.html#cos">cos</a></li><li><a href="MonkeySet.Indicator.html#cosh">cosh</a></li><li><a href="MonkeySet.Indicator.html#crossany">crossany</a></li><li><a href="MonkeySet.Indicator.html#crossover">crossover</a></li><li><a href="MonkeySet.Indicator.html#cvi">cvi</a></li><li><a href="MonkeySet.Indicator.html#decay">decay</a></li><li><a href="MonkeySet.Indicator.html#dema">dema</a></li><li><a href="MonkeySet.Indicator.html#di">di</a></li><li><a href="MonkeySet.Indicator.html#div">div</a></li><li><a href="MonkeySet.Indicator.html#dm">dm</a></li><li><a href="MonkeySet.Indicator.html#dpo">dpo</a></li><li><a href="MonkeySet.Indicator.html#dx">dx</a></li><li><a href="MonkeySet.Indicator.html#edecay">edecay</a></li><li><a href="MonkeySet.Indicator.html#ema">ema</a></li><li><a href="MonkeySet.Indicator.html#emv">emv</a></li><li><a href="MonkeySet.Indicator.html#exp">exp</a></li><li><a href="MonkeySet.Indicator.html#fisher">fisher</a></li><li><a href="MonkeySet.Indicator.html#floor">floor</a></li><li><a href="MonkeySet.Indicator.html#fosc">fosc</a></li><li><a href="MonkeySet.Indicator.html#hma">hma</a></li><li><a href="MonkeySet.Indicator.html#kama">kama</a></li><li><a href="MonkeySet.Indicator.html#kvo">kvo</a></li><li><a href="MonkeySet.Indicator.html#lag">lag</a></li><li><a href="MonkeySet.Indicator.html#linreg">linreg</a></li><li><a href="MonkeySet.Indicator.html#linregintercept">linregintercept</a></li><li><a href="MonkeySet.Indicator.html#linregslope">linregslope</a></li><li><a href="MonkeySet.Indicator.html#ln">ln</a></li><li><a href="MonkeySet.Indicator.html#log10">log10</a></li><li><a href="MonkeySet.Indicator.html#macd">macd</a></li><li><a href="MonkeySet.Indicator.html#marketfi">marketfi</a></li><li><a href="MonkeySet.Indicator.html#mass">mass</a></li><li><a href="MonkeySet.Indicator.html#max">max</a></li><li><a href="MonkeySet.Indicator.html#md">md</a></li><li><a href="MonkeySet.Indicator.html#medprice">medprice</a></li><li><a href="MonkeySet.Indicator.html#mfi">mfi</a></li><li><a href="MonkeySet.Indicator.html#min">min</a></li><li><a href="MonkeySet.Indicator.html#mom">mom</a></li><li><a href="MonkeySet.Indicator.html#msw">msw</a></li><li><a href="MonkeySet.Indicator.html#mul">mul</a></li><li><a href="MonkeySet.Indicator.html#natr">natr</a></li><li><a href="MonkeySet.Indicator.html#nvi">nvi</a></li><li><a href="MonkeySet.Indicator.html#obv">obv</a></li><li><a href="MonkeySet.Indicator.html#ppo">ppo</a></li><li><a href="MonkeySet.Indicator.html#psar">psar</a></li><li><a href="MonkeySet.Indicator.html#pvi">pvi</a></li><li><a href="MonkeySet.Indicator.html#qstick">qstick</a></li><li><a href="MonkeySet.Indicator.html#roc">roc</a></li><li><a href="MonkeySet.Indicator.html#rocr">rocr</a></li><li><a href="MonkeySet.Indicator.html#round">round</a></li><li><a href="MonkeySet.Indicator.html#rsi">rsi</a></li><li><a href="MonkeySet.Indicator.html#sin">sin</a></li><li><a href="MonkeySet.Indicator.html#sinh">sinh</a></li><li><a href="MonkeySet.Indicator.html#sma">sma</a></li><li><a href="MonkeySet.Indicator.html#sqrt">sqrt</a></li><li><a href="MonkeySet.Indicator.html#stddev">stddev</a></li><li><a href="MonkeySet.Indicator.html#stderr">stderr</a></li><li><a href="MonkeySet.Indicator.html#stoch">stoch</a></li><li><a href="MonkeySet.Indicator.html#stochrsi">stochrsi</a></li><li><a href="MonkeySet.Indicator.html#sub">sub</a></li><li><a href="MonkeySet.Indicator.html#sum">sum</a></li><li><a href="MonkeySet.Indicator.html#tan">tan</a></li><li><a href="MonkeySet.Indicator.html#tanh">tanh</a></li><li><a href="MonkeySet.Indicator.html#tema">tema</a></li><li><a href="MonkeySet.Indicator.html#todeg">todeg</a></li><li><a href="MonkeySet.Indicator.html#torad">torad</a></li><li><a href="MonkeySet.Indicator.html#tr">tr</a></li><li><a href="MonkeySet.Indicator.html#trima">trima</a></li><li><a href="MonkeySet.Indicator.html#trix">trix</a></li><li><a href="MonkeySet.Indicator.html#trunc">trunc</a></li><li><a href="MonkeySet.Indicator.html#tsf">tsf</a></li><li><a href="MonkeySet.Indicator.html#typprice">typprice</a></li><li><a href="MonkeySet.Indicator.html#ultosc">ultosc</a></li><li><a href="MonkeySet.Indicator.html#var">var</a></li><li><a href="MonkeySet.Indicator.html#vhf">vhf</a></li><li><a href="MonkeySet.Indicator.html#vidya">vidya</a></li><li><a href="MonkeySet.Indicator.html#volatility">volatility</a></li><li><a href="MonkeySet.Indicator.html#vosc">vosc</a></li><li><a href="MonkeySet.Indicator.html#vwma">vwma</a></li><li><a href="MonkeySet.Indicator.html#wad">wad</a></li><li><a href="MonkeySet.Indicator.html#wcprice">wcprice</a></li><li><a href="MonkeySet.Indicator.html#wilders">wilders</a></li><li><a href="MonkeySet.Indicator.html#willr">willr</a></li><li><a href="MonkeySet.Indicator.html#wma">wma</a></li><li><a href="MonkeySet.Indicator.html#zlema">zlema</a></li></ul></div></li><li><a href="MonkeySet.Operation.html">Operation</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Operation_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Operation.html#add">add</a></li><li><a href="MonkeySet.Operation.html#clear">clear</a></li></ul></div></li><li><a href="MonkeySet.Random.html">Random</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="MonkeySet.Random_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="MonkeySet.Random.html#setsFill">setsFill</a></li></ul></div></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const moment = require('moment')
+const chrono = require('chrono-node')
+const _ = require('lodash')
+const component = require('../classes/component')
+
+/**
+ * @summary For converting a MonkeySet to specific data formats
+ * @memberof MonkeySet
+ */
+class Converter extends component {
+  /**
+   * @hideconstructor
+   */
+  constructor(...args) {
+    super(...args)
+
+    this.monkeyset.chain.ohlc = this.ohlc
+  }
+  /**
+   * @summary Converts a MonkeySet to JSON
+   * @returns {object} MonkeySet class reference
+   * @example
+   * monkeyset = new MonkeySet([1,2,3,4,5,6], [7,8,9,10,11,12])
+   *
+   * // Get all sets in json data format
+   * const json = monkeyset.fetch('sets').json().result()
+   */
+  json() {
+    this.dataformat = 'json'
+
+    this.sets = JSON.stringify(this.sets)
+
+    return this
+  }
+
+  /**
+   * @summary Converts a MonkeySet to OHLC format
+   * @returns {object} MonkeySet class reference
+   * @example
+   * monkeyset = new MonkeySet([1,2,3,4,5,6], [7,8,9,10,11,12])
+   *
+   * // Get all sets in ohlc data format
+   * const ohlc = monkeyset.fetch('sets').ohlc().result()
+   */
+  ohlc() {
+    if (this.selector == 'column' &amp;&amp; this.dataformat) throw new Error(`Cannot convert ${this.dataformat} format to ohlc in a ${this.selector} fetch`)
+
+    this.dataformat = 'ohlc'
+    this.sets = {
+      time: this.sets.map(set => {
+        return set[0]
+      }),
+      open: this.sets.map(set => {
+        return set[1]
+      }),
+      high: this.sets.map(set => {
+        return set[2]
+      }),
+      low: this.sets.map(set => {
+        return set[3]
+      }),
+      close: this.sets.map(set => {
+        return set[4]
+      }),
+      volume: this.sets.map(set => {
+        return set[5]
+      })
+    }
+
+    return this
+  }
+}
+
+module.exports = Converter
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="https://i.imgur.com/hcLIful.png" style="width: 250px; height: 120px">
+    <div class="footer-text">NHN Entertainment. Frontend Development Lab</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

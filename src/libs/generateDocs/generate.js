@@ -94,8 +94,8 @@ const generate = async () => {
     }
 
     if (options.length >= 1) options = `{${options.join(', ')}}`
-    const run = await eval(`monkeyset.fetch('sets').last(12).convert('ohlc').${tulind.indicators[indicator].name}(${options})`)
-    example += ` * const result = await monkeyset.fetch('sets').last(12).convert('ohlc').${tulind.indicators[indicator].name}(${options})\n`
+    const run = await eval(`monkeyset.fetch('sets').last(12).ohlc().${tulind.indicators[indicator].name}(${options})`)
+    example += ` * const result = await monkeyset.fetch('sets').last(12).ohlc().${tulind.indicators[indicator].name}(${options})\n`
     example += ` * \n`
     example += ` * result = ${JSON.stringify(run, null, 4)}`
     jsdoc += example

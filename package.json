@@ -1,6 +1,6 @@
 {
   "name": "monkeyset",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "A lightweight and performance based OHLCV data manager",
   "main": "src/monkeyset.js",
   "homepage": "https://github.com/michaeldegroot/MonkeySet#readme",
@@ -15,7 +15,7 @@
   },
   "email": "specamps@gmail.com",
   "engines": {
-    "node": ">=11.0.0 <12.0.0"
+    "node": ">=11.0.0 <14.0.0"
   },
   "scripts": {
     "test": "npx nyc mocha tests/mocha/**/*.js --slow 1 && nyc report --reporter=html",
@@ -47,6 +47,10 @@
     "exclude": "src/libs"
   },
   "dependencies": {
+    "chrono-node": "^1.3.11",
+    "custom-electron-titlebar": "^3.0.8",
+    "electron": "^5.0.1",
+    "electron-spawn": "^5.0.0",
     "lodash": "^4.17.11",
     "technicalindicators": "^2.0.8",
     "tulind": "^0.8.15"

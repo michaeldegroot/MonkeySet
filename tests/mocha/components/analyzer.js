@@ -10,7 +10,7 @@ for (let pattern of monkeyset.Analyzer.candlePatterns) {
     const result = monkeyset
       .fetch('sets')
       .last(50)
-      .convert('ohlc')
+      .ohlc()
       .pattern(pattern)
   })
 }

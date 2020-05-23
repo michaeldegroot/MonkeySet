@@ -1,7 +1,10 @@
+const moment = require('moment')
+const chrono = require('chrono-node')
+const _ = require('lodash')
 const component = require('../classes/component')
 
 /**
- * @summary For selecting data from a MonkeySet
+ * @summary For filtering data from a MonkeySet
  * @memberof MonkeySet
  */
 class Filter extends component {
@@ -21,24 +24,53 @@ class Filter extends component {
 
   /**
    * @summary Grabs sets from a specified date
-   * @param {number} - Amount to grab
+   * @param {number} - Get sets from starting from this date
+   * @param {number} - Get sets from ending with this date
    * @returns {object} MonkeySet class reference
    * @example
-   * monkeyset = new MonkeySet([1,2,3,4,5,6], [7,8,9,10,11,12])
+   * const monkeyset = new MonkeySet(
+   *   [1557824898000, 4399, 4399, 4398, 4390, 48377],
+   *   [1557738498000, 4390, 4386, 4393, 4392, 48374],
+   *   [1557652098000, 4472, 4466.839069904292, 4473.785552755629, 4484, 48385]
+   * )
    *
    * // Get only first 2 sets
-   * const sets = monkeyset.fetch('sets').first(2).result()
+   * console.log(monkeyset.fetch('sets').between('2 days ago', 'now').sets)
+   * console.log(monkeyset.fetch('sets').between('3 days ago', '1 days ago').sets)
+   * console.log(monkeyset.fetch('sets').between('2 minutes ago').sets)
+   * console.log(monkeyset.fetch('sets').between('5-13-19').sets)
    */
   between(startDate, endDate = 'now') {
-    // start 1557960932110
-    // end   1560466532110
-    if (typeof startDate == 'string') {
-      console.log('string yeet')
+    const originalStart = startDate
+    const originalEnd = endDate
+    if (!startDate) throw new Error('between expects a first argument as startDate')
+
+    const chronoStart = moment(chrono.parseDate(startDate))
+    const chronoEnd = moment(chrono.parseDate(endDate))
+
+    if (chronoStart.isValid()) {
+      startDate = chronoStart
+    } else {
+      startDate = moment(startDate)
     }
-    if (typeof startDate == 'number') {
-      console.log('number yeet')
+    if (startDate.isValid() == false) {
+      throw new Error(`Cannot understand ${originalStart} as startDate date format, try something else`)
     }
-    gdfs
+
+    if (chronoEnd.isValid()) {
+      endDate = chronoEnd
+    } else {
+      endDate = moment(endDate)
+    }
+    if (endDate.isValid() == false) {
+      throw new Error(`Cannot understand ${originalEnd} as endDate date format, try something else`)
+    }
+
+    this.sets = this.sets.filter(set => {
+      const timestamp = moment(set[0])
+      return timestamp.unix() <= endDate.unix() && timestamp.unix() >= startDate.unix()
+    })
+
     return this
   }
 
@@ -99,47 +131,6 @@ class Filter extends component {
         return b[columnIndex] - a[columnIndex]
       }
     })
-
-    return this
-  }
-
-  /**
-   * @summary Converts a MonkeySet data to a specific data format
-   * @param {string} - what to convert the MonkeySet to
-   * @returns {object} MonkeySet class reference
-   * @example
-   * monkeyset = new MonkeySet([1,2,3,4,5,6], [7,8,9,10,11,12])
-   *
-   * // Get all sets in ohlc data format
-   * const ohlc = monkeyset.fetch('sets').convert('ohlc').result()
-   */
-  convert(to) {
-    if (to == 'ohlc') {
-      if (this.selector == 'column' && this.dataformat)
-        throw new Error(`Cannot convert ${this.dataformat} format to ohlc in a ${this.selector} fetch`)
-
-      this.dataformat = to
-      this.sets = {
-        time: this.sets.map(set => {
-          return set[0]
-        }),
-        open: this.sets.map(set => {
-          return set[1]
-        }),
-        high: this.sets.map(set => {
-          return set[2]
-        }),
-        low: this.sets.map(set => {
-          return set[3]
-        }),
-        close: this.sets.map(set => {
-          return set[4]
-        }),
-        volume: this.sets.map(set => {
-          return set[5]
-        })
-      }
-    }
 
     return this
   }

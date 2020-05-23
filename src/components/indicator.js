@@ -11,7 +11,7 @@ class Indicator extends component {
    * @memberof MonkeySet
    * @hideconstructor
    * @example
-   * const rsi = await monkeyset.fetch('sets').last(50).convert('ohlc').rsi({
+   * const rsi = await monkeyset.fetch('sets').last(50).ohlc().rsi({
    *     period: 5
    *     real: 'close'
    * })
