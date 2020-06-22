@@ -79,7 +79,11 @@ class Indicator extends component {
           returnObject[outputName] = result.splice(0, 1)[0]
         }
 
-        return returnObject
+        for (let objectName in returnObject) {
+          this.monkeyset.chain.sets[objectName] = returnObject[objectName]
+        }
+
+        return this.monkeyset.chain
       }
 
       this.monkeyset.chain[indicator] = this[indicator]

@@ -62,6 +62,7 @@ class MonkeySet {
   fetch(selector, ...args) {
     this.chain.sets = []
     this.chain.selector = selector
+    this.chain.extraData = {}
     this.chain.dataformat = 'native'
 
     // Given sets are: [[1,2,3,4,5,6], [7,8,9,10,11,12]]
@@ -76,12 +77,15 @@ class MonkeySet {
       // Column: [[1], [7]]
       if (args.length != 1) throw new Error(`you need to specify 1 argument for the ${selector} selector`)
       let columnSelector = false
+      // TODO: multiple column selects?
       if (args[0] == 'time') columnSelector = 0
       if (args[0] == 'open') columnSelector = 1
       if (args[0] == 'high') columnSelector = 2
       if (args[0] == 'low') columnSelector = 3
       if (args[0] == 'close') columnSelector = 4
       if (args[0] == 'volume') columnSelector = 5
+      const columns = ['time', 'open', 'high', 'low', 'close', 'volume']
+      this.chain.columnSelector = columns[columnSelector]
       if (columnSelector === false) throw new Error(`${args[0]} is not a valid column`)
 
       // TODO: This function is very slow, can it be optimized?
@@ -104,6 +108,7 @@ class MonkeySet {
     // Setup the the chain that will be used across components to work with
     this.chain = {}
     this.chain.sets = []
+    this.marketchain = {}
 
     // Read component files
     const files = fs.readdirSync(path.join(this.projectRoot, 'src', 'components')).filter(item => {

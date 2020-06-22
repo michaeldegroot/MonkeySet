@@ -24,7 +24,7 @@ class Random extends component {
    */
   setsFill(amount) {
     const startDate = new Date()
-    const baseVolume = _.random(1000, 100000)
+    const baseVolume = _.random(100, 1000)
     const basePrice = _.random(5, 9000)
     let price = basePrice
     let volume = baseVolume

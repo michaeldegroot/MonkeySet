@@ -1,4 +1,6 @@
 const electron = require('electron')
+const fs = require('fs')
+const path = require('path')
 const { ipcMain, app, BrowserWindow } = require('electron')
 
 app.on('ready', async () => {
@@ -17,7 +19,10 @@ app.on('ready', async () => {
   win.loadFile('index.html')
 
   ipcMain.on('get-chart', event => {
-    event.reply('get-chart', {})
+    event.reply('get-chart', {
+      ohlc: JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'))
+    })
+    event.reply('do-action', JSON.parse(fs.readFileSync(path.join(__dirname, 'action.json'), 'utf8')))
   })
 
   ipcMain.on('close-application', event => {

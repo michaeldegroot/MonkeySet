@@ -1,0 +1,5 @@
+{
+	"ext": "html,js,json,jshintrc,env,css",
+	"watch": "**/*",
+	"ignore": ["src/libs/electron"]
+}

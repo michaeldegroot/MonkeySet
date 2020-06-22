@@ -139,9 +139,6 @@ class Filter extends component {
    * @summary Called at the end of a filter chain to retrieve the result
    * @returns {array[]} The filtered result of a MonkeySet
    *
-   * TODO: would be cool if the filter chain could be
-   * calculated here, so promises are easy to implement.
-   * EDIT: Not possible BYE!!
    * @example
    * monkeyset = new MonkeySet([1,2,3,4,5,6], [7,8,9,10,11,12])
    *
