@@ -40,32 +40,12 @@
     "branches": 80,
     "lines": 90,
     "functions": 100,
-    "statements": 90,
-    "exclude": "src/libs"
+    "statements": 90
   },
   "dependencies": {
     "as-table": "^1.0.55",
-    "ccxt": "^1.30.33",
-    "chrono-node": "^1.3.11",
-    "custom-electron-titlebar": "^3.2.2-hotfix62",
-    "electron": "^9.0.4",
-    "electron-spawn": "^5.0.0",
-    "highcharts-export-server": "^2.0.28",
-    "lodash": "^4.17.11",
-    "technicalindicators": "^3.1.0",
-    "tulind": "^0.8.18"
+    "tulind": "^0.8.18",
+    "validate": "^5.1.0"
   },
-  "devDependencies": {
-    "benchmark": "^2.1.4",
-    "coveralls": "^3.0.3",
-    "draw-candlestick": "^2.0.3",
-    "husky": "^2.2.0",
-    "jsdoc": "^3.6.1",
-    "mocha": "^6.1.4",
-    "mocha-lcov-reporter": "^1.3.0",
-    "mocha-logger": "^1.0.6",
-    "moment": "^2.24.0",
-    "nyc": "^14.1.0",
-    "tui-jsdoc-template": "^1.2.2"
-  }
+  "devDependencies": {}
 }

@@ -27,20 +27,16 @@ The idea behind MonkeySet is that at it's core it's really just a simple javascr
 
 On top of that you have an extensive operations, analyzes, validations, and filters components you can apply on your data.
 
-It's core components are designed with performance in mind to maximize your results in for example back testing of your crypto currency bot :)
+It's core components are designed with performance in mind to maximize your results in for example back testing of your crypto currency bot
 
 **Warning: this project is not yet finished and the api will change heavily, do not use it in any important project just yet :)**
 
 ## Features
 
-- Chain style based queries: `const bollingerbands = await monkeyset.fetch('sets').last(20).convert('ohlc').bbands({period: 3, stddev: 6, real: 'close'})`
 - Low memory footprint
 - Maximum performance thanks to constant benchmarking and bottleneck testing
-- Capable of technical analyze of candles (trend analyze, machine learning pattern detections, etc.)
 - Technical indicators (RSI, SMA, etc.)
-- Can parse OHLCV data in CSV, json, txt, etc. files to a MonkeySet
-- Selecting your data between time column: `monkeyset.rows().between('1 day dago').and('now').fetch()`
-- Data integrity and validation (save/load HMAC, ensuring validity of sets during inserts)
+- Selecting your data between two datetime`
 
 ## Documentation
 
@@ -50,29 +46,49 @@ Checkout our [documentation](https://michaeldegroot.github.io/MonkeySet/)
 
 ```javascript
 const MonkeySet = require('monkeyset')
-// Create a MonkeySet
-const monkeyset = new MonkeySet([
-	// A MonkeySet holds sets, these are arrays that hold OHLC data:
-	// [time (unix), open (float/int), high (float/int), low (float/int), close (float/int), volume (float/int)]
-	[new Date(), 125, 127, 139, 105, 21252],
-	[new Date(), 115, 117, 119, 105, 21352],
-	[new Date(), 115, 117, 119, 105, 21552]
-])
 
-// Fetch all rows
-monkeyset.rows().fetch()
+// Create a template for this MonkeySet
+const monkeyset = new MonkeySet({
+	time: 'unix',
+	open: 'float',
+	high: 'float',
+	low: 'float',
+	close: 'float',
+	volume: 'int'
+})
+
+// Add data
+monkeyset.add([1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12], [13, 14, 15, 16, 17, 18])
+
+// Do some fancy stuff
+
+// Can display data
+monkeyset.select('sets').table()
+/*
+time  open  high  low  close  volume
+------------------------------------
+1     2     3     4    5      6
+7     8     9     10   11     12
+13    14    15    16   17     18
+*/
+
+// Can show raw data in json
+monkeyset.select('sets').json()
+// [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17,18]]
+
+// Can get one single set from index value
+console.log(monkeyset.select('set', { index: 1 }).json())
+// [7, 8, 9, 10, 11, 12]
+
+// Can bind template keys to values
+monkeyset.select('sets').bind()
+/*
+[
+  { time: 1, open: 2, high: 3, low: 4, close: 5, volume: 6 },
+  { time: 7, open: 8, high: 9, low: 10, close: 11, volume: 12 },
+  { time: 13, open: 14, high: 15, low: 16, close: 17, volume: 18 }
+]
+*/
 
 // But wait! there is more :)
 ```
-
-## Querying data
-
-blablalba
-
-## Monkeyset files
-
-blablalbal
-
-## Validation
-
-balblablal
