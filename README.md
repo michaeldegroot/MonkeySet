@@ -43,52 +43,55 @@ It's core components are designed with performance in mind to maximize your resu
 
 Checkout our [documentation](https://michaeldegroot.github.io/MonkeySet/)
 
+**This is the old documentation!! the new one will be made later, information is outdated, please be aware**
+
 ## Getting Started
 
 ```javascript
 const MonkeySet = require('monkeyset')
 
-// Create a template for this MonkeySet
 const monkeyset = new MonkeySet({
-	time: 'unix',
-	open: 'float',
-	high: 'float',
-	low: 'float',
-	close: 'float',
-	volume: 'int'
+	time: {
+		type: 'string',
+		validators: ['unix'],
+		format: 'YYYY-MM-DD'
+	},
+	open: {
+		type: 'number'
+	},
+	high: {
+		type: 'number'
+	},
+	low: {
+		type: 'number'
+	},
+	close: {
+		type: 'number'
+	},
+	volume: {
+		type: 'number'
+	}
 })
 
-// Add data
-monkeyset.add([1, 2, 3, 4, 5, 6], [7, 8, 9, 10, 11, 12], [13, 14, 15, 16, 17, 18])
+monkeyset.add(['2017 - 12 - 1', 2, 3, 4, 5, 6], ['2017 - 12 - 2', 8, 9, 10, 11, 12], ['2017 - 12 - 3', 14, 15, 16, 17, 18])
 
-// Do some fancy stuff
-
-// Can display data
-monkeyset.select('sets').table()
+console.log(monkeyset.select('sets').table())
 /*
-time  open  high  low  close  volume
-------------------------------------
-1     2     3     4    5      6
-7     8     9     10   11     12
-13    14    15    16   17     18
+time        open  high  low  close  volume
+------------------------------------------
+1512082800  2     3     4    5      6
+1512169200  8     9     10   11     12
+1512255600  14    15    16   17     18
 */
 
-// Can show raw data in json
-monkeyset.select('sets').json()
-// [[1,2,3,4,5,6],[7,8,9,10,11,12],[13,14,15,16,17,18]]
-
-// Can get one single set from index value
-console.log(monkeyset.select('set', { index: 1 }).json())
-// [7, 8, 9, 10, 11, 12]
-
-// Can bind template keys to values
-monkeyset.select('sets').bind()
+console.log(monkeyset.select('sets').json())
 /*
-[
-  { time: 1, open: 2, high: 3, low: 4, close: 5, volume: 6 },
-  { time: 7, open: 8, high: 9, low: 10, close: 11, volume: 12 },
-  { time: 13, open: 14, high: 15, low: 16, close: 17, volume: 18 }
-]
+[[1512082800,2,3,4,5,6],[1512169200,8,9,10,11,12],[1512255600,14,15,16,17,18]]
+*/
+
+console.log(monkeyset.select('column', 'low').json())
+/*
+[4,10,16]
 */
 
 // But wait! there is more :)
