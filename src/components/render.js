@@ -7,11 +7,15 @@ class Render extends require('./Component') {
   }
 
   json() {
-    return JSON.stringify(this.monkeyset.select)
+    const returnVal = JSON.stringify(this.monkeyset.select)
+    this.clear()
+    return returnVal
   }
 
   table() {
-    return asTable(this.bind())
+    const returnVal = this.bind()
+    this.clear()
+    return asTable(returnVal)
   }
 }
 

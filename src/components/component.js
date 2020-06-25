@@ -11,6 +11,9 @@ class Component {
 
   set exports(exports) {
     for (let item of exports) {
+      if (this.monkeyset.exports[item.name]) {
+        throw new Error(`${item.name} is already a exported monkeyset function!`)
+      }
       this.monkeyset.exports[item.name] = item
     }
   }

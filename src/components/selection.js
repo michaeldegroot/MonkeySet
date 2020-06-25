@@ -1,5 +1,4 @@
 const assert = require('assert')
-const validate = require('validate')
 
 class Selection extends require('./Component') {
   constructor(...args) {

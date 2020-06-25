@@ -7,14 +7,14 @@
   "url": "https://github.com/michaeldegroot/MonkeySet/issues",
   "license": "MIT",
   "scripts": {
-    "test": "npx nyc mocha tests/mocha/**/*.js --slow 1 && nyc report --reporter=html",
+    "test": "npx nyc mocha tests/mocha/**/*.js --slow 1 && npx nyc report --reporter=html",
     "benchmark:file": "mocha tests/mocha/components/file.js && node tests/benchmark/components/file.js",
     "benchmark:filter": "mocha tests/mocha/components/filter.js && node tests/benchmark/components/filter.js",
     "benchmark:operation": "mocha tests/mocha/components/operation.js && node tests/benchmark/components/operation.js",
     "benchmark:random": "mocha tests/mocha/components/random.js && node tests/benchmark/components/random.js",
     "benchmark:analyzer": "mocha tests/mocha/components/analyzer.js && node tests/benchmark/components/analyzer.js",
     "benchmark": "npm run benchmark:file && npm run benchmark:filter && npm run benchmark:operation && npm run benchmark:random",
-    "coveralls:export": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls:export": "npx nyc report --reporter=text-lcov | coveralls",
     "docs:create": "node src/libs/generateDocs/generate.js && del docs /Q && jsdoc -c docs.json",
     "docs:publish": "npm run docs:create && git add README.md docs && git commit -m \"docs update\" && git push origin development"
   },
@@ -47,5 +47,7 @@
     "momentjs": "^2.0.0",
     "tulind": "^0.8.18"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "husky": "^4.2.5"
+  }
 }
