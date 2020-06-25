@@ -1,5 +1,6 @@
 const assert = require('assert')
-const validate = require('validate')
+const Validate = require('../libs/validate')
+const moment = require('moment')
 
 class Operation extends require('./Component') {
   constructor(...args) {
@@ -7,7 +8,9 @@ class Operation extends require('./Component') {
   }
 
   clear() {
-    this.monkeyset.select = this.monkeyset.sets
+    this.monkeyset.select = []
+
+    return this
   }
 
   delete(index = -1) {
@@ -15,20 +18,20 @@ class Operation extends require('./Component') {
       this.monkeyset.select = []
       this.monkeyset.sets = []
     }
+
+    return this
   }
 
   add(...sets) {
     for (let set of sets) {
       assert.equal(set.length, this.monkeyset.keyLength, `add expected a length of ${this.monkeyset.keyLength}`)
       let i = 0
-      const validation = {}
+      const validate = new Validate()
       for (let key in this.monkeyset.template) {
-        const value = set[i]
-        const type = this.monkeyset.template[key]
-        // console.log(`${key} is a ${type} (${typeof value}) type with the value ${value}`)
+        validate.add(key, set[i], this.monkeyset.template[key])
         i++
       }
-      this.monkeyset.sets.push(set)
+      this.monkeyset.sets.push(validate.check())
     }
 
     return this

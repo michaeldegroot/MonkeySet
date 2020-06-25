@@ -9,6 +9,8 @@ class Selection extends require('./Component') {
   select(getType, ...args) {
     let selection
 
+    assert.equal(this.monkeyset.select.length, 0, 'Expected the current selection to be empty, use .clear()')
+
     if (getType === 'sets') {
       selection = this.monkeyset.sets
     }
@@ -24,11 +26,6 @@ class Selection extends require('./Component') {
     }
 
     if (getType === 'column') {
-      console.log('---------------')
-      // console.log(args)
-      // selection = this.monkeyset.sets
-      // this.monkeyset.select = selection
-      // console.log(this.monkeyset.selection)
       selection = []
       for (let item of this.bind(this.monkeyset.sets)) {
         selection.push(item[args[0]])
