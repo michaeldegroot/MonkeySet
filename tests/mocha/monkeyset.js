@@ -1,10 +1,13 @@
 const assert = require('assert')
-const MonkeySet = require('../../src/monkeyset')
+const MonkeySet = require('../../monkeyset')
 
 describe('MonkeySet', function() {
-  it('Valid class object structure', () => {
-    const monkeyset = new MonkeySet()
-    assert('index' in monkeyset)
-    assert('sets' in monkeyset)
+  it('Valid class structure', () => {
+    const monkeyset = new MonkeySet({})
+    assert('monkeyset' in monkeyset)
+    assert('keys' in monkeyset.monkeyset)
+    assert('template' in monkeyset.monkeyset)
+    assert('keyLength' in monkeyset.monkeyset)
+    assert('exports' in monkeyset.monkeyset)
   })
 })

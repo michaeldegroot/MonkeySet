@@ -1,50 +1,40 @@
-const component = require('../classes/component')
+const assert = require('assert')
+const Validate = require('../libs/validate')
+const moment = require('moment')
 
-/**
- * @summary For doing operations on data from a MonkeySet
- * @memberof MonkeySet
- */
-class Operation extends component {
-  /**
-   * @hideconstructor
-   */
+class Operation extends require('./Component') {
   constructor(...args) {
     super(...args)
   }
 
-  /**
-   * @summary Adds OHLC data to the MonkeySet
-   * @param {array[]} - A set or a array of sets
-   * @fires MonkeySet#add
-   * @example
-   * // One add
-   * monkeyset.Operation.add([1,2,3,4,5,6])
-   *
-   * // Multiple adds
-   * monkeyset.Operation.add(
-   *  [1,2,3,4,5,6],
-   *  [1,2,3,4,5,6],
-   *  [1,2,3,4,5,6],
-   * )
-   */
-  add(...newSet) {
-    this.monkeyset.sets.push(...newSet)
-    /** @event MonkeySet#add */
-    this.monkeyset.event.emit('add')
+  clear() {
+    this.monkeyset.select = []
+
+    return this
   }
 
-  /**
-   * @summary clears a MonkeySet object, destroying all data.
-   * @fires MonkeySet#clear
-   * @example
-   * monkeyset.Operation.clear()
-   */
-  clear() {
-    this.monkeyset.chain.sets = []
-    this.monkeyset.sets = []
-    this.monkeyset.index = 0
-    /** @event MonkeySet#clear */
-    this.monkeyset.event.emit('clear')
+  delete(index = -1) {
+    if (index === -1) {
+      this.monkeyset.select = []
+      this.monkeyset.sets = []
+    }
+
+    return this
+  }
+
+  add(...sets) {
+    for (let set of sets) {
+      assert.equal(set.length, this.monkeyset.keyLength, `add expected a length of ${this.monkeyset.keyLength}`)
+      let i = 0
+      const validate = new Validate()
+      for (let key in this.monkeyset.template) {
+        validate.add(key, set[i], this.monkeyset.template[key])
+        i++
+      }
+      this.monkeyset.sets.push(validate.check())
+    }
+
+    return this
   }
 }
 

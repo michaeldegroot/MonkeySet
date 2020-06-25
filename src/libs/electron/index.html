@@ -1,0 +1,287 @@
+<html>
+  <title>MonkeySet Graph</title>
+  <head>
+    <script>
+      if (typeof module === 'object') {
+        window.module = module
+        module = undefined
+      }
+    </script>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css" />
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/css/css.js"></script>
+
+    <style>
+      html {
+        background-color: transparent;
+      }
+
+      @-webkit-keyframes spin {
+        from {
+          -webkit-transform: rotateY(0deg);
+        }
+        to {
+          -webkit-transform: rotateY(360deg);
+        }
+      }
+      .imageSpin {
+        animation-name: spin;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-duration: 2s;
+        -webkit-animation-name: spin;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-duration: 2s;
+      }
+
+      @font-face {
+        font-family: 'droid_sans_monoregular';
+        src: url('DroidSansMono-webfont.eot');
+        src: url('DroidSansMono-webfont.eot?#iefix') format('embedded-opentype'), url('DroidSansMono-webfont.woff2') format('woff2'),
+          url('DroidSansMono-webfont.woff') format('woff'), url('DroidSansMono-webfont.ttf') format('truetype'),
+          url('DroidSansMono-webfont.svg#droid_sans_monoregular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .swal2-modal {
+        font-family: 'VT323', monospace;
+        background-color: #ffffffe3;
+      }
+      .swal2-container {
+        -webkit-animation: slide 20s linear infinite;
+      }
+      .CodeMirror {
+        font-family: 'droid_sans_monoregular';
+        font-size: 16px;
+      }
+      .swal-height {
+        height: 80vh;
+      }
+      .CodeMirror {
+        height: 440px !important;
+      }
+
+      .line-error {
+        background-color: #ff000045;
+      }
+
+      .CodeMirror-linenumber {
+        padding: 1px 8px 0 5px;
+        color: #c8d2d7;
+        font-size: 15px;
+      }
+    </style>
+    <script>
+      const { ipcRenderer } = require('electron')
+      const customTitlebar = require('custom-electron-titlebar')
+      const _ = require('lodash')
+      const fs = require('fs')
+      const path = require('path')
+
+      if (typeof module === 'object') {
+        window.module = module
+        module = undefined
+      }
+      function highlightLine(lineNumber) {
+        //Line number is zero based index
+        var actualLineNumber = lineNumber - 1
+
+        //Select editor loaded in the DOM
+        var myEditor = $('.CodeMirror')
+        console.log(myEditor)
+        console.log(myEditor[0].CodeMirror)
+
+        var codeMirrorEditor = myEditor[0].CodeMirror
+
+        //Set line css class
+        codeMirrorEditor.addLineClass(actualLineNumber, 'background', 'line-error')
+      }
+      window.onerror = _.throttle(
+        (message, source, lineno, colno, error) => {
+          $('.titlebar').remove()
+          source = source.split('file:///')[1]
+          const errorFile = _.escape(fs.readFileSync(source))
+          Swal.fire({
+            width: '82%',
+            title: `<img src="yeet.png" class="imageSpin" height="150px"><span style=" display: inline-block;vertical-align: bottom;font-size: 93px">Error 😩</span>`,
+            html: `<span style="font-size: 29px">${message}<br><i style="color: lightgrey">${source} ${lineno}:${colno}</i></span><div style="text-align:left"><textarea id="error-content">${errorFile}</textarea></div>`,
+            padding: '3em',
+            readOnly: true,
+            animation: false,
+            customClass: {
+              popup: 'animated tada swal-height'
+            },
+            showCloseButton: true,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: 'Okay, kill me',
+            onOpen: () => {
+              $('#error-content').each((index, elem) => {
+                const editor = CodeMirror.fromTextArea(elem, {
+                  mode: 'htmlmixed',
+                  lineNumbers: true,
+                  lineWrapping: true,
+                  styleActiveLine: true,
+                  styleActiveSelected: true,
+                  extraKeys: {
+                    'Ctrl-Q': function(cm) {
+                      cm.foldCode(cm.getCursor())
+                    }
+                  },
+                  foldGutter: true,
+                  gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+                })
+                setTimeout(() => {
+                  var t = editor.charCoords({ line: lineno, ch: 0 }, 'local').top
+                  var middleHeight = editor.getScrollerElement().offsetHeight / 2
+                  editor.scrollTo(null, t - middleHeight - 5)
+                }, 100)
+                highlightLine(lineno)
+              })
+            }
+          }).then(() => {
+            ipcRenderer.send('close-application')
+          })
+          console.error(error)
+        },
+        1000,
+        {}
+      )
+    </script>
+  </head>
+  <body>
+    <div id="container" style="height: 100%; width: 100%"></div>
+
+    <script>
+      new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex('#444')
+      })
+
+      $(() => {
+        ipcRenderer.on('get-chart', (event, data) => {
+          loadChart(data)
+        })
+        ipcRenderer.on('do-action', (event, data) => {
+          doAction(data)
+        })
+        ipcRenderer.send('get-chart')
+      })
+
+      const doAction = data => {
+        console.log('ACTION', data)
+        if (data.action === 'picture') {
+        }
+      }
+
+      const loadChart = data => {
+        // split the data set into ohlc and volume
+        var ohlc = []
+        var volume = []
+        var dataLength = data.ohlc.open.length
+        // set the allowed units for data grouping
+        var groupingUnits = [
+            [
+              'week', // unit name
+              [1] // allowed multiples
+            ],
+            ['month', [1, 2, 3, 4, 6]]
+          ],
+          i = 0
+
+        for (i; i < dataLength; i += 1) {
+          ohlc.push([
+            data.ohlc['time'][i], // the date
+            data.ohlc['open'][i], // open
+            data.ohlc['high'][i], // high
+            data.ohlc['low'][i], // low
+            data.ohlc['close'][i] // close
+          ])
+
+          volume.push([
+            data.ohlc['time'][i], // the date
+            data.ohlc['volume'][i] // the volume
+          ])
+        }
+
+        // create the chart
+        Highcharts.stockChart('container', {
+          rangeSelector: {
+            selected: 1
+          },
+
+          title: {
+            text: data.title
+          },
+
+          yAxis: [
+            {
+              labels: {
+                align: 'right',
+                x: -3
+              },
+              title: {
+                text: 'OHLC'
+              },
+              height: '60%',
+              lineWidth: 2,
+              resize: {
+                enabled: true
+              }
+            },
+            {
+              labels: {
+                align: 'right',
+                x: -3
+              },
+              title: {
+                text: 'Volume'
+              },
+              top: '65%',
+              height: '35%',
+              offset: 0,
+              lineWidth: 2
+            }
+          ],
+
+          tooltip: {
+            split: true
+          },
+
+          series: [
+            {
+              type: 'candlestick',
+              name: data.title,
+              data: ohlc,
+              dataGrouping: {
+                units: groupingUnits
+              }
+            },
+            {
+              type: 'column',
+              name: 'Volume',
+              data: volume,
+              yAxis: 1,
+              dataGrouping: {
+                units: groupingUnits
+              }
+            }
+          ]
+        })
+      }
+    </script>
+  </body>
+</html>

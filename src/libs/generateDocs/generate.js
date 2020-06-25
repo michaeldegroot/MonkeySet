@@ -6,8 +6,19 @@ const MonkeySet = require('../../monkeyset')
 const monkeyset = new MonkeySet()
 monkeyset.Random.setsFill(555)
 
+function stringifyNumber(n) {
+  var special = ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth']
+  if (n < 20) return special[n]
+  if (n % 10 === 0) return [''][Math.floor(n / 10) - 2] + 'ieth'
+  return [''][Math.floor(n / 10) - 2] + 'y-' + special[n % 10]
+}
+
 const generate = async () => {
   let jsdoc = ``
+
+  // ANALYZERS
+
+  // INDICATORS
   for (let indicator in tulind.indicators) {
     const indicatorFunction = tulind.indicators[indicator]
 
@@ -49,7 +60,7 @@ const generate = async () => {
         newOption = 5.351
       }
 
-      jsdoc += ` * @param options.${optionName} {${typeof newOption}} The option ${optionName}
+      jsdoc += ` * @param options.${optionName} {${typeof newOption}} The ${optionName} option 
   `
 
       if (indicator == 'macd') {
@@ -73,21 +84,20 @@ const generate = async () => {
       let value = 'close'
       if (inputIndex == 2) value = 'open'
       if (inputName == 'real') options.push(`input${inputIndex}: '${value}'`)
-      jsdoc += ` * @param options.input${inputIndex} {array} The input ${inputName}\n`
+      jsdoc += ` * @param options.input${inputIndex} {array} The ${stringifyNumber(inputIndex)} input\n`
       inputIndex++
     }
 
     for (let outputName of indicatorFunction.output_names) {
-      jsdoc += ` * @returns ${outputName} {array} from the ${indicator} ${indicatorFunction.type} function
+      jsdoc += ` * @returns ${outputName} - {array} the result from ${indicator}
   `
     }
 
     if (options.length >= 1) options = `{${options.join(', ')}}`
-    const run = await eval(`monkeyset.fetch('sets').last(12).convert('ohlc').${tulind.indicators[indicator].name}(${options})`)
-    example += ` * const result = await monkeyset.fetch('sets').last(12).convert('ohlc').${tulind.indicators[indicator].name}(${options})\n`
+    const run = await eval(`monkeyset.fetch('sets').last(12).ohlc().${tulind.indicators[indicator].name}(${options})`)
+    example += ` * const result = await monkeyset.fetch('sets').last(12).ohlc().${tulind.indicators[indicator].name}(${options})\n`
     example += ` * \n`
-    example += ` * console.log(result)\n`
-    example += ` * // returns: \n${JSON.stringify(run, null, 4)}`
+    example += ` * result = ${JSON.stringify(run, null, 4)}`
     jsdoc += example
     jsdoc += ` */`
   }
